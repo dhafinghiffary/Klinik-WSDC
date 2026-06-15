@@ -22,6 +22,28 @@
 - **Multi-Branch:** Global Eloquent scope memfilter `branch_id` otomatis per user; Owner bypass scope
 - **Storage:** File foto pasien disimpan di Cloudflare R2 via S3 driver
 
+## Status Kerangka
+
+Kerangka backend sudah di-scaffold (Laravel 12 + Sanctum). Sudah tersedia:
+
+- **19 migrasi** sesuai [docs/database-schema.md](../docs/database-schema.md) (urutan dependency, index, CHECK constraint, `pg_trgm`).
+- **17 Eloquent model** + `BranchScope` global scope (filter `branch_id` otomatis, Owner bypass).
+- **Auth Sanctum** (`login`/`logout`/`me`) + middleware `role:` + 4 Policy.
+- **Controller Api/V1**, Form Request, & API Resource untuk seluruh modul (45+ endpoint, lihat `routes/api.php` → 55 route).
+- **Seeder**: role, 3 cabang, akun per-role, kondisi odontogram, master tindakan.
+
+Cek seluruh route: `php artisan route:list --path=api/v1`.
+
+### Akun Seed (testing)
+
+| Role | Email | Password | Cabang |
+|---|---|---|---|
+| Owner | `owner@wsdc.test` | `password` | (lintas cabang) |
+| Admin | `admin@wsdc.test` | `password` | WSDC-A |
+| Dokter | `dokter@wsdc.test` | `password` | WSDC-A, WSDC-B |
+
+> Catatan: tipe enum diimplementasikan sebagai kolom + CHECK constraint (portable). Endpoint kompleks (rekam medis agregat, pembayaran) sudah memakai `DB::transaction`; logika lanjutan mengikuti roadmap [backend.md](../backend.md) Bagian 11.
+
 ## Struktur Folder (setelah `laravel new`)
 
 ```
