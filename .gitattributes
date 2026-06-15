@@ -1,0 +1,33 @@
+# Normalize line endings to LF in the repository
+# (checked out as CRLF on Windows, LF on Mac/Linux)
+* text=auto eol=lf
+
+# Force LF for these file types even on Windows
+*.php text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.env text eol=lf
+*.env.example text eol=lf
+*.gitignore text eol=lf
+*.blade.php text eol=lf
+*.dart text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.sh text eol=lf
+
+# Treat binary files as binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.tar binary
+*.gz binary

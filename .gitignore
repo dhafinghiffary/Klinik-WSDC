@@ -1,0 +1,89 @@
+# ============================================================
+# WSDC Klinik — Monorepo .gitignore
+# ============================================================
+
+# ───────────────────────────────────────────────
+# Laravel (backend/)
+# ───────────────────────────────────────────────
+backend/vendor/
+backend/.env
+backend/.env.backup
+backend/.env.production
+backend/storage/logs/
+backend/storage/app/public/
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/storage/framework/views/
+backend/public/storage
+backend/public/hot
+backend/.phpunit.result.cache
+backend/coverage/
+backend/node_modules/
+
+# ───────────────────────────────────────────────
+# React / Node (frontend/)
+# ───────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/coverage/
+frontend/.vite/
+
+# ───────────────────────────────────────────────
+# Flutter (mobile/)
+# ───────────────────────────────────────────────
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/build/
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/app/debug/
+mobile/android/app/release/
+mobile/**/*.g.dart
+mobile/**/*.freezed.dart
+
+# ───────────────────────────────────────────────
+# OS
+# ───────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ───────────────────────────────────────────────
+# IDE
+# ───────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/settings.json
+.vscode/launch.json
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.swp
+*.swo
+*~
+
+# ───────────────────────────────────────────────
+# Misc
+# ───────────────────────────────────────────────
+*.log
+*.tmp
+*.cache
+.temp/
