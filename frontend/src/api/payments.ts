@@ -6,6 +6,7 @@ export interface PaymentListParams {
   date_from?: string
   date_to?: string
   payment_method?: PaymentMethod
+  search?: string
   page?: number
   per_page?: number
 }

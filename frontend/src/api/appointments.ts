@@ -16,6 +16,11 @@ export const appointmentsApi = {
     return data
   },
 
+  today: async (): Promise<Appointment[]> => {
+    const { data } = await apiClient.get<ApiResponse<Appointment[]>>("/appointments/today")
+    return data.data
+  },
+
   get: async (id: number): Promise<Appointment> => {
     const { data } = await apiClient.get<ApiResponse<Appointment>>(`/appointments/${id}`)
     return data.data

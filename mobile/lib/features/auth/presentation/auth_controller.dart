@@ -27,6 +27,11 @@ class AuthController extends Notifier<AuthState> {
     state = AuthState(status: AuthStatus.authenticated, user: user);
   }
 
+  /// Dipanggil saat startup bila sesi tersimpan berhasil dipulihkan.
+  void setRestored(User user) {
+    state = AuthState(status: AuthStatus.authenticated, user: user);
+  }
+
   Future<void> logout() async {
     await _repo.logout();
     state = const AuthState(status: AuthStatus.unauthenticated);

@@ -4,6 +4,7 @@ export interface Diagnosis {
   id?: number
   tooth_number: string | null
   description: string
+  notes: string | null
 }
 
 export interface Treatment {
@@ -19,11 +20,12 @@ export interface Prescription {
   id?: number
   medicine_name: string
   dosage: string
-  instruction: string
+  frequency: string
+  quantity: string
+  instruction: string | null
 }
 
 export interface Odontogram {
-  id?: number
   tooth_number: string
   condition_code: string
   notes: string | null
@@ -44,6 +46,7 @@ export interface MedicalRecord {
   branch_id: number
   visit_date: string
   anamnesis: string | null
+  additional_notes: string | null
   diagnoses: Diagnosis[]
   treatments: Treatment[]
   prescriptions: Prescription[]
@@ -51,6 +54,21 @@ export interface MedicalRecord {
   photos: PatientPhoto[]
   created_at: string
   updated_at: string
+  // Field tampilan
+  patient?: { id: number; name: string; medical_record_number: string; drug_allergies: string | null }
+  doctor_name?: string | null
+  branch_name?: string | null
+  has_payment?: boolean
+}
+
+/** Ringkasan untuk tabel rekam medis di Detail Pasien. */
+export interface MedicalRecordListItem {
+  id: number
+  visit_date: string
+  doctor_name: string
+  diagnosis_summary: string
+  treatment_count: number
+  payment_status: "paid" | "partial" | "unpaid" | null
 }
 
 /** Payload aggregate untuk create/update rekam medis. */
@@ -58,7 +76,8 @@ export interface MedicalRecordFormData {
   patient_id: number
   appointment_id?: number | null
   visit_date: string
-  anamnesis?: string | null
+  anamnesis: string
+  additional_notes?: string | null
   diagnoses: Diagnosis[]
   treatments: Treatment[]
   prescriptions: Prescription[]

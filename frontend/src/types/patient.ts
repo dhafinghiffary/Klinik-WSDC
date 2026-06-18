@@ -45,6 +45,15 @@ export interface Patient {
   updated_at: string
 }
 
+/** Baris tab "Riwayat Kunjungan" di Detail Pasien. */
+export interface PatientHistoryItem {
+  id: number // medical_record_id
+  visit_date: string
+  doctor_name: string
+  treatment_summary: string
+  payment_status: "paid" | "partial" | "unpaid" | null
+}
+
 /** Payload create/update pasien. */
 export interface PatientFormData {
   name: string

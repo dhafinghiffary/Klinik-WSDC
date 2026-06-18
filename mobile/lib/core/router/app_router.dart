@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/auth_controller.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/home/presentation/home_shell.dart';
+import '../../features/medical_records/presentation/medical_record_detail_screen.dart';
 import '../../features/medical_records/presentation/medical_records_screen.dart';
+import '../../features/medical_records/presentation/patient_records_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/schedule/presentation/schedule_screen.dart';
 
@@ -40,6 +42,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const ProfileScreen(),
           ),
         ],
+      ),
+      GoRoute(
+        path: '/patient-records/:id',
+        builder: (context, state) => PatientRecordsScreen(
+          patientId: int.parse(state.pathParameters['id']!),
+          patientName: state.extra as String? ?? 'Pasien',
+        ),
+      ),
+      GoRoute(
+        path: '/medical-records/:id',
+        builder: (context, state) => MedicalRecordDetailScreen(
+          recordId: int.parse(state.pathParameters['id']!),
+        ),
       ),
     ],
   );
