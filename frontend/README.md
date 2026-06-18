@@ -1,7 +1,7 @@
 # Frontend — React + TypeScript
 
-**Owner:** dhafinghiffary  
-**Stack:** React 19 · TypeScript · Vite · Shadcn UI · TanStack Query · React Hook Form · Zod
+**Owner:** dhafinghiffary
+**Stack:** React 19 · TypeScript · Vite · Tailwind v4 · Shadcn UI · TanStack Query · React Hook Form · Zod
 
 ---
 
@@ -15,77 +15,64 @@
 
 ---
 
-## Struktur Folder (setelah `npm create vite@latest`)
+## Struktur Folder
 
 ```
 frontend/
 ├── public/
 ├── src/
 │   ├── api/              # axios instance + per-module API calls
-│   │   ├── client.ts
+│   │   ├── client.ts     # axios instance + interceptor (token, error)
 │   │   ├── auth.ts
 │   │   ├── patients.ts
 │   │   ├── appointments.ts
-│   │   ├── medicalRecords.ts
+│   │   ├── medical-records.ts
 │   │   ├── payments.ts
-│   │   └── reports.ts
+│   │   ├── reports.ts
+│   │   └── master.ts
 │   ├── components/
-│   │   ├── ui/           # Shadcn UI components (auto-generated)
-│   │   └── shared/       # AlertDialog, Toast, Skeleton, dll
+│   │   ├── ui/           # Shadcn UI components (npx shadcn add ...)
+│   │   └── shared/       # komponen reusable lintas halaman
+│   ├── config/
+│   │   └── navigation.ts # item sidebar per role
+│   ├── constants/
+│   │   └── roles.ts      # konstanta role & helper
 │   ├── hooks/            # TanStack Query custom hooks
 │   ├── layouts/
 │   │   ├── AuthLayout.tsx
-│   │   └── AppLayout.tsx  # Header + Sidebar
-│   ├── pages/
-│   │   ├── auth/
-│   │   │   └── LoginPage.tsx
-│   │   ├── dashboard/
-│   │   │   └── DashboardPage.tsx
-│   │   ├── patients/
-│   │   │   ├── PatientListPage.tsx
-│   │   │   ├── PatientDetailPage.tsx
-│   │   │   └── PatientFormPage.tsx
-│   │   ├── appointments/
-│   │   │   ├── AppointmentListPage.tsx
-│   │   │   └── AppointmentFormPage.tsx
-│   │   ├── medicalRecords/
-│   │   │   ├── MedicalRecordFormPage.tsx
-│   │   │   └── MedicalRecordDetailPage.tsx
-│   │   ├── payments/
-│   │   │   ├── PaymentFormPage.tsx
-│   │   │   └── PaymentHistoryPage.tsx
-│   │   ├── reports/
-│   │   │   └── ReportsPage.tsx
-│   │   ├── settings/
-│   │   │   └── SettingsPage.tsx
-│   │   └── errors/
-│   │       ├── NotFoundPage.tsx
-│   │       └── ForbiddenPage.tsx
+│   │   └── AppLayout.tsx # Header + Sidebar
+│   ├── lib/
+│   │   ├── query-client.ts
+│   │   └── utils.ts      # cn() helper (Shadcn)
+│   ├── pages/            # satu folder per modul
+│   │   ├── auth/ dashboard/ patients/ appointments/
+│   │   ├── medical-records/ payments/ reports/ settings/
+│   │   └── errors/       # 403, 404
 │   ├── router/
-│   │   ├── index.tsx      # React Router v6 config
+│   │   ├── index.tsx     # React Router v6 config
 │   │   └── ProtectedRoute.tsx
-│   ├── stores/            # Zustand — auth state, user, branch
-│   ├── types/             # TypeScript interfaces & enums
-│   │   ├── api.ts         # Standard response envelope
-│   │   ├── patient.ts
-│   │   ├── appointment.ts
-│   │   ├── medicalRecord.ts
-│   │   └── payment.ts
+│   ├── stores/           # Zustand — auth state, user, branch
+│   │   └── auth-store.ts
+│   ├── types/            # TypeScript interfaces & enums
+│   │   ├── api.ts        # Standard response envelope
+│   │   ├── auth.ts patient.ts appointment.ts
+│   │   ├── medical-record.ts payment.ts
 │   ├── utils/
-│   │   ├── currency.ts    # Intl.NumberFormat IDR
-│   │   └── date.ts        # dayjs helpers
+│   │   ├── currency.ts   # Intl.NumberFormat IDR
+│   │   └── date.ts       # dayjs helpers
 │   ├── App.tsx
-│   └── main.tsx
+│   ├── main.tsx
+│   └── index.css         # Tailwind + Shadcn theme variables
 ├── .env.example
+├── components.json       # Shadcn UI config
 ├── index.html
 ├── tsconfig.json
-├── vite.config.ts
-└── components.json        # Shadcn UI config
+└── vite.config.ts
 ```
 
 ---
 
-## Setup (setelah folder ini diisi)
+## Setup
 
 ```bash
 cp .env.example .env.local
@@ -101,35 +88,48 @@ VITE_API_BASE_URL=http://localhost:8000/api/v1
 
 ---
 
+## Menambah Komponen Shadcn
+
+Foundation (Tailwind, theme variables, `cn()`, `components.json`) sudah siap. Tambahkan komponen sesuai kebutuhan:
+
+```bash
+npx shadcn@latest add button card input label table dialog
+```
+
+Komponen masuk ke `src/components/ui/`.
+
+---
+
 ## Library Utama
 
-| Library | Versi | Kegunaan |
-|---|---|---|
-| react | ^19 | Framework UI |
-| typescript | ^5 | Type safety |
-| vite | ^6 | Build tool |
-| @tanstack/react-query | ^5 | Server state management |
-| react-hook-form | ^7 | Form handling |
-| zod | ^3 | Schema validation |
-| react-router-dom | ^6 | Routing |
-| axios | ^1 | HTTP client |
-| dayjs | ^1 | Date formatting |
-| recharts | ^2 | Charts (Dashboard & Reports) |
-| zustand | ^4 | Client state (auth, user) |
-| sonner | ^1 | Toast notifications |
-
-> Semua UI components dari [shadcn/ui](https://ui.shadcn.com/) — install per-komponen via `npx shadcn@latest add`.
+| Library | Kegunaan |
+|---|---|
+| react 19 | Framework UI |
+| typescript | Type safety |
+| vite | Build tool |
+| tailwindcss v4 | Styling |
+| shadcn/ui | Komponen UI |
+| @tanstack/react-query | Server state management |
+| react-hook-form + zod | Form & validasi |
+| react-router-dom | Routing |
+| axios | HTTP client |
+| zustand | Client state (auth, user, branch) |
+| dayjs | Date formatting |
+| recharts | Charts (Dashboard & Reports) |
+| sonner | Toast notifications |
+| lucide-react | Icons |
 
 ---
 
 ## Konvensi
 
-- **Penamaan file:** PascalCase untuk komponen, camelCase untuk utils/hooks
+- **Penamaan file:** PascalCase untuk komponen (`PatientList.tsx`), kebab-case untuk non-komponen (`auth-store.ts`)
 - **API calls:** Semua via custom hooks di `src/hooks/` menggunakan TanStack Query
 - **Form:** React Hook Form + Zod schema — lihat wireframe spec untuk validasi per field
-- **Currency:** Selalu format IDR dengan `Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })`
-- **Date:** dayjs dengan locale `id` untuk format Indonesia
-- **Auth token:** Simpan di localStorage, inject via axios interceptor
+- **Currency:** `formatIDR()` dari `src/utils/currency.ts`
+- **Date:** helper dari `src/utils/date.ts` (dayjs, locale `id`)
+- **Path alias:** `@/` → `src/` (mis. `import { cn } from "@/lib/utils"`)
+- **Auth token:** localStorage, di-inject via axios interceptor
 
 ---
 
