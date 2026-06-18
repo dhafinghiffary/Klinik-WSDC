@@ -29,6 +29,11 @@ export interface Payment {
   details: PaymentDetail[]
   paid_at: string
   created_at: string
+  // Field tampilan (di-embed backend untuk tabel/kwitansi)
+  patient?: { id: number; name: string; medical_record_number: string }
+  doctor_name?: string | null
+  branch_name?: string | null
+  visit_date?: string | null
 }
 
 /** Payload create pembayaran. */

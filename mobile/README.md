@@ -2,10 +2,17 @@
 
 **Stack:** Flutter 3.41 · Dart 3.11 · Riverpod · go_router · Dio
 **Target:** Android & iOS
-**Status:** Scaffold siap — fitur menyusul (Phase 4+)
+**Status:** Fitur inti selesai — siap dijalankan saat backend tersedia.
 
 Aplikasi untuk **dokter**: akses jadwal praktik & rekam medis pasien dari smartphone.
 Menggunakan API yang sama dengan frontend (`/api/v1`) dengan Sanctum Bearer Token.
+
+### Fitur yang sudah jalan
+- Login + pemulihan sesi otomatis dari token tersimpan (secure storage)
+- Tab **Jadwal**: daftar kunjungan hari ini (pull-to-refresh)
+- Tab **Rekam Medis**: cari pasien → daftar rekam medis → detail (read-only)
+- Tab **Profil**: info akun + logout
+- Interceptor Dio: inject Bearer token + auto-clear saat 401
 
 ---
 

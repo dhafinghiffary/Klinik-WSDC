@@ -14,8 +14,10 @@ import MedicalRecordFormPage from "@/pages/medical-records/MedicalRecordFormPage
 import MedicalRecordDetailPage from "@/pages/medical-records/MedicalRecordDetailPage"
 import PaymentFormPage from "@/pages/payments/PaymentFormPage"
 import PaymentHistoryPage from "@/pages/payments/PaymentHistoryPage"
+import PaymentDetailPage from "@/pages/payments/PaymentDetailPage"
 import ReportsPage from "@/pages/reports/ReportsPage"
 import SettingsPage from "@/pages/settings/SettingsPage"
+import ProfilePage from "@/pages/profile/ProfilePage"
 import ForbiddenPage from "@/pages/errors/ForbiddenPage"
 import NotFoundPage from "@/pages/errors/NotFoundPage"
 
@@ -37,14 +39,16 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <Navigate to="/dashboard" replace /> },
           { path: "dashboard", element: <DashboardPage /> },
+          { path: "profile", element: <ProfilePage /> },
 
           // Pasien
           {
             element: <ProtectedRoute roles={[ADMIN, OWNER]} />,
-            children: [
-              { path: "patients", element: <PatientListPage /> },
-              { path: "patients/:id", element: <PatientDetailPage /> },
-            ],
+            children: [{ path: "patients", element: <PatientListPage /> }],
+          },
+          {
+            element: <ProtectedRoute roles={[ADMIN, OWNER, DOCTOR]} />,
+            children: [{ path: "patients/:id", element: <PatientDetailPage /> }],
           },
           {
             element: <ProtectedRoute roles={[ADMIN]} />,
@@ -73,7 +77,7 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            element: <ProtectedRoute roles={[DOCTOR, ADMIN]} />,
+            element: <ProtectedRoute roles={[DOCTOR, ADMIN, OWNER]} />,
             children: [{ path: "medical-records/:id", element: <MedicalRecordDetailPage /> }],
           },
 
@@ -84,7 +88,10 @@ export const router = createBrowserRouter([
           },
           {
             element: <ProtectedRoute roles={[ADMIN, OWNER]} />,
-            children: [{ path: "payments", element: <PaymentHistoryPage /> }],
+            children: [
+              { path: "payments", element: <PaymentHistoryPage /> },
+              { path: "payments/:id", element: <PaymentDetailPage /> },
+            ],
           },
 
           // Laporan & Pengaturan

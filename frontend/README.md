@@ -84,7 +84,21 @@ npm run dev
 
 ```env
 VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_ENABLE_MOCK=true   # pakai Mock API (MSW), tanpa backend
 ```
+
+---
+
+## Mock API (MSW)
+
+Untuk testing frontend **tanpa backend**, aktifkan Mock API via `VITE_ENABLE_MOCK=true` di `.env.local`.
+
+- Handler & data dummy ada di `src/mocks/`
+- Akun demo (password semua `password`): `owner@wsdc.test`, `admin@wsdc.test`, `dokter@wsdc.test`
+- Contoh halaman yang sudah pakai data mock: **Daftar Pasien** (`/patients`)
+- Set `VITE_ENABLE_MOCK=false` saat backend Laravel sudah jalan
+
+Menambah endpoint mock: buat handler di `src/mocks/handlers/` lalu daftarkan di `handlers/index.ts`.
 
 ---
 
